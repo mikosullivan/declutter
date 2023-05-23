@@ -1,8 +1,8 @@
-require_relative '/home/miko/projects/ruby-lib/content/lib/cl-dev.rb'
-require 'bryton/lite'
-require 'declutter'
+$LOAD_PATH.unshift File.expand_path('../lib', File.dirname(__FILE__))
+require 'bryton/lite.rb'
+require 'json'
 require 'local-json'
-require 'tatum'
+require 'declutter'
 
 # standard_struct
 def standard_struct
