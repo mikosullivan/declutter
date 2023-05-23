@@ -1,0 +1,22 @@
+{
+  "empty-array": [
+
+  ],
+  "full-array": [
+    "a",
+    null,
+    false,
+    "b",
+    "b",
+    {
+      "empty-array": [
+
+      ]
+    }
+  ],
+  "full-hash": {
+    "string": "my-string"
+  },
+  "null": null,
+  "false": false
+}

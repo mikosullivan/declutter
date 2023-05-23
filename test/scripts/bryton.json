@@ -1,0 +1,15 @@
+{
+	"meta": {
+		"title": "Declutter"
+	},
+	
+	"files" : {
+		"load.rb"      : true,
+		"basic"        : true,
+		"falses"       : true,
+		"keep-arrays"  : true,
+		"keep-hashes"  : true,
+		"keep-nils"    : true,
+		"redundancies" : true
+	}
+}
