@@ -2,21 +2,38 @@
 # Declutter
 #
 class Declutter
+	# If empty hashes should be deleted. True by default.
 	attr_accessor :delete_empty_hashes
+	
+	# If empty arrays should be deleted. True by default.
 	attr_accessor :delete_empty_arrays
+	
+	# If redundant array elements should be deleted. False by default.
 	attr_accessor :delete_redundancies
+	
+	# If nils should be deleted. False by default.
 	attr_accessor :delete_nils
+	
+	# If falses should be deleted. False by default.
 	attr_accessor :delete_falses
+	
+	# If objects that respond to #declutter should be processed Defaults
+	# to true.
+	attr_accessor :process_others
 	
 	#---------------------------------------------------------------------------
 	# initialize
 	#
+	
+	# Creates a new Declutter object. Takes no params.
+	
 	def initialize
 		@delete_empty_hashes = true
 		@delete_empty_arrays = true
 		@delete_redundancies = false
 		@delete_nils = false
 		@delete_falses = false
+		@process_others = true
 	end
 	#
 	# initialize
@@ -25,11 +42,16 @@ class Declutter
 	
 	#---------------------------------------------------------------------------
 	# process
-	# Process hash or array. Anything else is left as is.
 	#
+	
+	# Declutter a hash or array.
+	
 	def process(obj)
+		# declutter hash
 		if obj.is_a?(Hash)
 			process_hash obj
+		
+		# declutter array
 		elsif obj.is_a?(Array)
 			process_array obj
 		end
@@ -42,12 +64,19 @@ class Declutter
 	#---------------------------------------------------------------------------
 	# self.process
 	#
+	
+	# Shortcut for decluttering with default settings.
+	
 	def self.process(obj)
 		self.new.process obj
 	end
 	#
 	# self.process
 	#---------------------------------------------------------------------------
+	
+	
+	# private
+	private
 	
 	
 	#---------------------------------------------------------------------------
@@ -118,6 +147,12 @@ class Declutter
 		# false
 		elsif not v
 			return !@delete_falses
+			
+		# other class
+		elsif @process_others and v.respond_to?('declutter')
+			if not v.declutter
+				return false
+			end
 		end
 		
 		# if we get this far then we're keeping the element

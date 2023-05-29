@@ -1,6 +1,8 @@
-# declutter
+# Declutter
+
 Declutters your Ruby hashes and arrays by removing empty arrays and hashes.
-Also has options for removing nils, redundancies and falses.
+Also has options for removing nils, redundancies and falses, and objects that
+respond to `#declutter`.
 
 In this simple example, we create a hash structure that contains an empty array:
 
@@ -124,6 +126,57 @@ declutter.delete_empty_arrays = false
 declutter.process myhash
 
 puts myhash # => {"episodes"=>[]}
+```
+
+### objects of other classes
+
+Objects of your own custom class can be decluttered if they have a `#declutter`
+method. Consider these two classes.
+
+```ruby
+class KeepMe
+   def declutter
+      return true
+   end
+end
+
+class DeleteMe
+   def declutter
+      return false
+   end
+end
+```
+
+Both classes have declutter methods. `KeepMe#declutter` returns true and
+`DeleteMe#declutter` returns false. In this first example, we use the default
+settings to declutter the hash.
+
+```ruby
+hsh = {}
+hsh['keep-it'] = KeepMe.new
+hsh['delete-it'] = DeleteMe.new
+
+Declutter.process hsh
+
+puts hsh # => {"keep-it"=>#<KeepMe:0x0000559f8574b718>}
+```
+
+The `keep-it` element was kept because `KeepMe#declutter` returns true. However,
+the `delete-it` element was deleted because `DeleteMe#declutter` returns false.
+
+To bypass decluttering objects that have a `#declutter` method, use the object
+oriented approach and set `process_others` to false:
+
+```ruby
+hsh = {}
+hsh['keep-it'] = KeepMe.new
+hsh['delete-it'] = DeleteMe.new
+
+declutter = Declutter.new
+declutter.process_others = false
+declutter.process hsh
+
+puts hsh # => {"keep-it"=>#<KeepMe:0x000055e5ffd46f80>, "delete-it"=>#<DeleteMe:0x000055e5ffd46f30>}
 ```
 
 ## History

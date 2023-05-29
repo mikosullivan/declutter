@@ -1,0 +1,12 @@
+{
+  "hashes": {
+    "keep": {
+      "a": {"keepme":true}
+    }
+  },
+  "arrs": {
+    "keep": [
+      {"keepme":true}
+    ]
+  }
+}

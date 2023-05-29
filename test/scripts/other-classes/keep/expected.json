@@ -1,0 +1,22 @@
+{
+  "hashes": {
+    "keep": {
+      "a": {"keepme":true},
+      "b": {"keepme":false}
+    },
+    "delete": {
+      "a": {"keepme":false},
+      "b": {"keepme":false}
+    }
+  },
+  "arrs": {
+    "keep": [
+      {"keepme":true},
+      {"keepme":false}
+    ],
+    "delete": [
+      {"keepme":false},
+      {"keepme":false}
+    ]
+  }
+}
